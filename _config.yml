@@ -1,0 +1,18 @@
+remote_theme: pages-themes/minimal@v0.2.0
+plugins:
+- jekyll-remote-theme
+- jekyll-feed
+- jekyll-seo-tag
+- jekyll-sitemap
+
+title: Do you want to go pro in League of Legends? Focus on these Features.
+description: By Amy Liu and Priya Gutta
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+      title: "League of Legends Analysis" 

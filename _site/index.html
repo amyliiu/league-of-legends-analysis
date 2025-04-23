@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Want to go pro in League of Legends? Focus on these Features. | Do you want to go pro in League of Legends? Focus on these Features.</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Want to go pro in League of Legends? Focus on these Features." />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="By Amy Liu and Priya Gutta" />
+<meta property="og:description" content="By Amy Liu and Priya Gutta" />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="Do you want to go pro in League of Legends? Focus on these Features." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Want to go pro in League of Legends? Focus on these Features." />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","description":"By Amy Liu and Priya Gutta","headline":"Want to go pro in League of Legends? Focus on these Features.","name":"Do you want to go pro in League of Legends? Focus on these Features.","url":"http://localhost:4000/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=75856bb74f60e3dedfb200e4c33cb5b1ede442a3">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://localhost:4000/">Do you want to go pro in League of Legends? Focus on these Features.</a></h1>
+
+        
+
+        <p>By Amy Liu and Priya Gutta</p>
+
+        
+        <p class="view"><a href="https://github.com/amyliiu/league-of-legends-analysis">View the Project on GitHub <small>amyliiu/league-of-legends-analysis</small></a></p>
+        
+
+        
+
+        
+      </header>
+      <section>
+
+      <h2 id="introduction">Introduction</h2>
+
+<h3 id="dataset-overview">Dataset Overview</h3>
+<p>This project uses the 2025 League of Legends (LoL) dataset from the Oracle’s Elixir dataset (https://oracleselixir.com/tools/downloads). It is a collection of all 2025 LoL matches updated once a day. Our dataset was downloaded March 25th, 2025 and only considers games played before then. It includes detailed team- and player-level data from professional games across multiple competitive tiers and regional splits. Each match contains statistics such as champion picks, total gold, kills, side selection (blue/red), and game results. The dataset is particularly rich for exploratory analysis, allowing us to investigate broader strategic patterns across teams and time.</p>
+
+<p>We chose the 2025 LoL data because it reflects the most p-to-date game meta and team rosters. Given the rapid evolution of the game, such as champion and item changes, using the most recent data ensures our analysis captures the current competitive landscape, making the results more applicable for understanding the true features that impact team wins in the modern meta.</p>
+
+<p>In the exploratory phase, we considered questions such as: How do certain teams in Tier 1 pick their champions? Does a team’s side (blue or red) influence their selection? And does the split (e.g., Spring vs. Summer) affect how teams build their compositions? These questions guided our early data aggregations and visualizations, where we examined champion diversity, side preference, and changes in team strategies across splits.</p>
+
+<p>In this project, our analysis will address the key question <strong>which features matter the most in determining team wins across a split?</strong>
+We will explore different elements that may affect the number of team wins, including:</p>
+<ol>
+  <li>A specific side preference, blue or red</li>
+  <li>Champion diversity, calculated through variety in champion selection</li>
+  <li>and average kill-to-death ratio (KDR)</li>
+</ol>
+
+<h3 id="why-does-this-matter">Why does this matter?</h3>
+<p>Identifying features that influence team success provides insight into the strategic and performance-based factors that shape competitive e-sports. For example, a team’s variety in champion selection (champion diversity) is heavily dependent on their coaching staff and the champion compositions they explore. On the other hand, the average KDR reflects the mechanical skills of the players and their time spent in training. By analyzing these features, we uncover trends that drive a team’s success. This helps coaches, players, and administration make more informed decisions in scouting, preparation, and team development.</p>
+
+<h3 id="dataset-statistics">Dataset Statistics</h3>
+<p>The dataset contains 24,373 rows of LoL match data, but we focus on the following columns that will help to answer our research question.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">gameid</code>: Unique identifier for each game</li>
+  <li><code class="language-plaintext highlighter-rouge">split</code>: The competitive split (e.g., Spring, Summer)</li>
+  <li><code class="language-plaintext highlighter-rouge">position</code>: The position the player played</li>
+  <li><code class="language-plaintext highlighter-rouge">side</code>: Team side (blue/red)</li>
+  <li><code class="language-plaintext highlighter-rouge">teamname</code>: Name of the team</li>
+  <li><code class="language-plaintext highlighter-rouge">teamid</code>: Unique team identifier</li>
+  <li><code class="language-plaintext highlighter-rouge">champion</code>: The player’s selected champion</li>
+  <li><code class="language-plaintext highlighter-rouge">result</code>: Game outcome (1 for win, 0 for loss)</li>
+  <li><code class="language-plaintext highlighter-rouge">teamkills</code>: Number of team kills</li>
+  <li><code class="language-plaintext highlighter-rouge">teamdeaths</code>: Number of team deaths</li>
+  <li><code class="language-plaintext highlighter-rouge">damagetochampions</code>: Total damage dealt to champions</li>
+  <li><code class="language-plaintext highlighter-rouge">totalgold</code>: Total gold earned</li>
+</ul>
+
+<h2 id="data-cleaning">Data Cleaning</h2>
+<p>We performed the following data cleaning steps to ensure the dataset accurately reflects completed, competitive LoL games with meaningful information for analysis.</p>
+<ol>
+  <li><strong>Removal of Incomplete Games</strong><br />
+We removed all rows where the <code class="language-plaintext highlighter-rouge">datacompleteness</code> field was not marked as <code class="language-plaintext highlighter-rouge">"complete"</code>. This ensures that only fully-played games’ statistics are included in our analysis.</li>
+  <li><strong>Removal of Games with Unknown Teams</strong><br />
+Some entries involved teams labeled as <code class="language-plaintext highlighter-rouge">"unknown team"</code>, likely due to missing metadata or scraping issues. We identified all <code class="language-plaintext highlighter-rouge">gameid</code>s associated with these entries and removed all rows from those games to avoid partial or unbalanced comparisons.</li>
+  <li><strong>Selection of Relevant Columns</strong><br />
+For ease of later analysis steps, we selected the subset of columns relevant to our questions of interest:
+<code class="language-plaintext highlighter-rouge">['gameid', 'split', 'position', 'side', 'teamname', 'teamid', 'champion', 'result', 'teamkills', 'teamdeaths', 'damagetochampions', 'totalgold']</code>.</li>
+  <li><strong>Separation of Player-Level and Team-Level Data</strong><br />
+The dataset includes both team-specific and player-specific rows. For each game, there exists 5 rows per player and 1 row per team. With 2 teams, this is a total of (5+1)*2 = 12 rows of data. We split them into two separate DataFrames:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">team_df</code>: rows where <code class="language-plaintext highlighter-rouge">position == "team"</code>, representing overall team stats.</li>
+      <li><code class="language-plaintext highlighter-rouge">player_df</code>: rows for specific player game choices, such as champion selection.</li>
+    </ul>
+  </li>
+  <li><strong>Removal of Rows with Missing <code class="language-plaintext highlighter-rouge">split</code> Values</strong><br />
+After filtering for team-level rows, we found that all remaining <code class="language-plaintext highlighter-rouge">NaN</code> values were in the <code class="language-plaintext highlighter-rouge">split</code> column. Since the <code class="language-plaintext highlighter-rouge">split</code> indicates the tournament stage or league split the game belongs to (e.g., Spring or Summer), games without this information were excluded to avoid mixing in unstructured or potentially miscategorized matches. These rows were dropped using <code class="language-plaintext highlighter-rouge">dropna(subset="split")</code>.</li>
+</ol>
+
+<p>Below is the head of the cleaned DataFrame:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>gameid</th>
+      <th>split</th>
+      <th>side</th>
+      <th>position</th>
+      <th>teamname</th>
+      <th>teamid</th>
+      <th>champion</th>
+      <th>result</th>
+      <th>teamkills</th>
+      <th>teamdeaths</th>
+      <th>damagetochampions</th>
+      <th>totalgold</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>LOLTMNT03_179647</td>
+      <td>Winter</td>
+      <td>Blue</td>
+      <td>top</td>
+      <td>IZI Dream</td>
+      <td>oe:team:2799e04c7212d3c262467ef25427eda</td>
+      <td>Gnar</td>
+      <td>0</td>
+      <td>3</td>
+      <td>13</td>
+      <td>20156</td>
+      <td>10668</td>
+    </tr>
+    <tr>
+      <td>LOLTMNT03_179647</td>
+      <td>Winter</td>
+      <td>Blue</td>
+      <td>jng</td>
+      <td>IZI Dream</td>
+      <td>oe:team:2799e04c7212d3c262467ef25427eda</td>
+      <td>Maokai</td>
+      <td>0</td>
+      <td>3</td>
+      <td>13</td>
+      <td>4963</td>
+      <td>7429</td>
+    </tr>
+    <tr>
+      <td>LOLTMNT03_179647</td>
+      <td>Winter</td>
+      <td>Blue</td>
+      <td>mid</td>
+      <td>IZI Dream</td>
+      <td>oe:team:2799e04c7212d3c262467ef25427eda</td>
+      <td>Hwei</td>
+      <td>0</td>
+      <td>3</td>
+      <td>13</td>
+      <td>13952</td>
+      <td>9032</td>
+    </tr>
+    <tr>
+      <td>LOLTMNT03_179647</td>
+      <td>Winter</td>
+      <td>Blue</td>
+      <td>bot</td>
+      <td>IZI Dream</td>
+      <td>oe:team:2799e04c7212d3c262467ef25427eda</td>
+      <td>Jinx</td>
+      <td>0</td>
+      <td>3</td>
+      <td>13</td>
+      <td>6898</td>
+      <td>9407</td>
+    </tr>
+    <tr>
+      <td>LOLTMNT03_179647</td>
+      <td>Winter</td>
+      <td>Blue</td>
+      <td>sup</td>
+      <td>IZI Dream</td>
+      <td>oe:team:2799e04c7212d3c262467ef25427eda</td>
+      <td>Leona</td>
+      <td>0</td>
+      <td>3</td>
+      <td>13</td>
+      <td>4174</td>
+      <td>5719</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Because of our filtering, we had no rows that contained <code class="language-plaintext highlighter-rouge">NaN</code> values, and did not need to perform imputation. So, after performing data cleaning, we retained a high-quality dataset of <strong>3120 rows and 1560 games</strong> for our analysis.</p>
+
+<h2 id="exploratory-analysis">Exploratory Analysis</h2>
+<h3 id="winning-side-frequency-univariate-analysis">Winning Side Frequency (Univariate Analysis)</h3>
+<p>We first analyzed the overall winning side frequency across all games:</p>
+<iframe src="assets/winning_side.html" width="800" height="600" frameborder="0"></iframe>
+<p>From our figure, we see that the blue side won 140 more games than the red side. This is interesting, as in LoL games, the blue side always has the first pick in champion selection. We know that side assignment is random in games, so should coaches have players play more scrims on the red side?</p>
+
+<h3 id="champion-selection-by-side-bivariate-analysis">Champion Selection by Side (Bivariate Analysis)</h3>
+<p>Next, to understand how the team side affected champion selection, we analyzed the distribution of the top 10 most picked champions by side (blue or red).</p>
+<iframe src="assets/champ_selection.html" width="800" height="600" frameborder="0"></iframe>
+<p>Note that certain champions had a strong preference on one side. For example, Corki was picked 41 more times on the blue side than on the red, suggesting that it is valued as a first-pick option. This data could be used for champion bans, as players are aware of which champions their opponent is more likely to choose.</p>
+
+<h3 id="interesting-aggregates">Interesting Aggregates</h3>
+<p>Embed at least one grouped table or pivot table in your website and explain its significance.
+TODOOOO</p>
+
+<h2 id="problem-identification">Problem Identification</h2>
+<p>Thus, we aim to <strong>predict the number of wins a LoL team will achieve during a split</strong> using performance-based and strategic-based features. This is a regression problem because our target variable — the total number of wins per team per split — is a continuous number rather than a categorical label. We chose this target because win count is a direct indicator of a team performance across a season. The features used for prediction are:</p>
+<ul>
+  <li>avrg_teamkills</li>
+  <li>avrg_totalgold</li>
+  <li>blue_ratio</li>
+  <li>champion_diversity</li>
+  <li>avrg_damagetochampions</li>
+  <li>avg_kdr</li>
+</ul>
+
+<p>All features are aggregated at the split level using data from previous splits. This way, they reflect team behavior and performance before the start of the split we’re predicting which simulates a real-world scenario. We want to forecast how well a team will perform in an upcoming split using only historical information and not provide any data from future games.</p>
+
+<h3 id="evaluation-metric">Evaluation Metric</h3>
+<p>We use R² as our primary evaluation metric. R² measures the proportion of variance in the target variable (win rate) that is explained by the model. An R² of 1.0 indicates perfect predictions, while an R² of 0.0 means the model performs no better than simply predicting the mean. In context of our analysis, R² allows us to compare the relative importance of different features used in determining team wins. The higher the R², the more valuable and relevant the features are.</p>
+
+<h2 id="baseline-model">Baseline Model</h2>
+<p>We trained a baseline linear regression model to predict a team’s win rat in a given split.</p>
+
+<h3 id="features-used">Features Used</h3>
+<p>We grouped the dataset by <code class="language-plaintext highlighter-rouge">teamname</code> and <code class="language-plaintext highlighter-rouge">split</code>, then computed average values per team per split to form these quantitative input features:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">avrg_teamkills</code>: Average number of kills per game.</li>
+  <li><code class="language-plaintext highlighter-rouge">avrg_totalgold</code>: Average total gold earned per game.</li>
+</ul>
+
+<p>The model includes 2 quantitative, 0 ordinal, and 0 nominal features. No encoding was necessary because all inputs were numeric. Note that the categorical variables of <code class="language-plaintext highlighter-rouge">split</code> and <code class="language-plaintext highlighter-rouge">teamname</code> were used only for grouping: they were not included as features in the model.</p>
+
+<h3 id="target-variable">Target Variable</h3>
+<p>The target variable was the <strong>team’s win rate</strong> across each split, calculated as:
+<code class="language-plaintext highlighter-rouge">win_rate = number of wins / total number of games</code>.</p>
+
+<h3 id="model-training-and-evaluation">Model Training and Evaluation</h3>
+<p>We split the data into a 70/30 training/test split and trained a linear regression model using <code class="language-plaintext highlighter-rouge">scikit-learn</code>. Here are the performance metrics on the test set:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>MSE</strong></td>
+      <td>0.0264</td>
+    </tr>
+    <tr>
+      <td><strong>MAE</strong></td>
+      <td>0.1247</td>
+    </tr>
+    <tr>
+      <td><strong>R²</strong></td>
+      <td>0.401</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We consider these results as a good starting point for modeling win rate considering we used just two stats. An R² of ~0.40 indicates that ~40% of the variance in win rate is explained by just two features, which is meaningful for such a high-variance outcome. Additionally, the low MAE (~12%) shows that predictions were generally close to the actual win rate, even with a simple model. The results also make intuitive sense: <code class="language-plaintext highlighter-rouge">teamkills</code> and <code class="language-plaintext highlighter-rouge">totalgold</code> are directly related to success in League of Legend.</p>
+
+<h2 id="final-model">Final Model</h2>
+<h3 id="engineered-features">Engineered Features</h3>
+<p>To improve on the baseline model, we added the following features, chosen based on their relevance to team strategy in competitive LoL matches:</p>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">blue_ratio</code></strong>: The proportion of games played on the Blue side. The Blue side is traditionally seen as advantageous in pro play because it always gets first pick of champions. This ratio helps capture potential systemic advantages or preferences.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">champion_diversity</code></strong>: The number of unique champions a team played during a split. High diversity may indicate flexibility and strategic depth of a team, which could correlate with better performance.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">avrg_damagetochampions</code></strong>: The average damage dealt to champions. This statistic reflects heavily a team’s offensive capabilities.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">avg_kdr</code></strong>: The average kill-to-death ratio, calculated from <code class="language-plaintext highlighter-rouge">teamkills</code> and <code class="language-plaintext highlighter-rouge">teamdeaths</code>. A high KDR typically indicates team dominance during fights and good execution.</li>
+</ul>
+
+<p>These features reflect a team’s strategic style and adaptability, which go beyond raw metrics like kills and gold. Next, we trained four models to determine a one that would perform the best.</p>
+
+<h3 id="1-linear-regression">1. Linear Regression</h3>
+<p>For our first model, we used the same linear regression model in the baseline model with a preprocessing pipeline:</p>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">avrg_teamkills</code> and <code class="language-plaintext highlighter-rouge">avrg_totalgold</code></strong> were scaled using StandardScaler to normalize their distribution.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">blue_ratio</code> and <code class="language-plaintext highlighter-rouge">avg_kdr</code></strong> were transformed using a QuantileTransformer to reduce skewness and account for outliers.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">champion_diversity</code> and <code class="language-plaintext highlighter-rouge">avrg_damagetochampions</code></strong> were left unscaled due to already reasonable distributions.</li>
+</ul>
+
+<h4 id="model-performance">Model Performance</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Baseline Model</th>
+      <th>Final Model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>MSE</strong></td>
+      <td>0.0264</td>
+      <td><strong>0.0131</strong></td>
+    </tr>
+    <tr>
+      <td><strong>MAE</strong></td>
+      <td>0.1247</td>
+      <td><strong>0.0795</strong></td>
+    </tr>
+    <tr>
+      <td><strong>R²</strong></td>
+      <td>0.401</td>
+      <td><strong>0.702</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The R² improvement from 0.401 to 0.702 shows that our final model explains over 70% of the variance in win rate, compared to just 40% in the baseline. This is a significant improvement from our baseline model and shows that adding strategic features capture other aspects of the game that relate to its outcome.</p>
+
+<h3 id="2-lasso">2. Lasso</h3>
+<p>We chose to explore LASSO next because it can effectively perform feature selection and improve generalization/reduce overfitting. We chose to tune the alpha hyperparameter for our Lasso model. Since Lasso applies L1 regularization, adjusting alpha helps control model complexity. A higher alpha increases the regularization strength, reducing overfitting and potentially zeroing out unimportant features. We used <code class="language-plaintext highlighter-rouge">GridSearchCV</code> with 5-fold cross-validation to search across a range of alpha values: <code class="language-plaintext highlighter-rouge">[0.001, 0.01, 0.1, 1, 10]</code>.<br />
+The optimal value was found to be: <strong><code class="language-plaintext highlighter-rouge">alpha = 0.001</code></strong></p>
+
+<h4 id="model-performance-1">Model Performance</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Baseline Model</th>
+      <th>Final Model</th>
+      <th>Final Lasso</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>MSE</strong></td>
+      <td>0.0264</td>
+      <td>0.0131</td>
+      <td><strong>0.0128</strong></td>
+    </tr>
+    <tr>
+      <td><strong>MAE</strong></td>
+      <td>0.1247</td>
+      <td>0.0795</td>
+      <td><strong>0.0789</strong></td>
+    </tr>
+    <tr>
+      <td><strong>R²</strong></td>
+      <td>0.401</td>
+      <td>0.702</td>
+      <td><strong>0.709</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Compared to both the baseline and the earlier Linear Regression model, the Lasso model increased R² to 0.709, showing a stronger fit to the test data.</p>
+
+<h4 id="feature-importance">Feature Importance</h4>
+
+<p>Additionally, we examined the importance of each feature based on its learned coefficient values. The Lasso model applies L1 regularization, which leads to some coefficients being zeroed out, effectively performing feature selection. Features with non-zero coefficients have a stronger impact on predicting win rate, while those with near-zero coefficients were considered less important.</p>
+
+<p>Below is the bar chart showing the magnitude of the coefficients:
+<img src="/assets/LASSO_importance.png" alt="Lasso Feature Importances" /></p>
+
+<p>The following table lists the features ordered by their absolute coefficient values:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Coefficient</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">avg_kdr</code></td>
+      <td>0.148017</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">avrg_totalgold</code></td>
+      <td>0.068793</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">avrg_teamkills</code></td>
+      <td>0.032144</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">blue_ratio</code></td>
+      <td>-0.019843</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">avrg_damagetochampions</code></td>
+      <td>-0.000004</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">champion_diversity</code></td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>From the table and plot, we can observe that <strong><code class="language-plaintext highlighter-rouge">avg_kdr</code></strong> has the largest positive coefficient, indicating it plays a significant role in the model’s prediction of win rate. Conversely, <strong><code class="language-plaintext highlighter-rouge">champion_diversity</code></strong> has a coefficient of zero, meaning it was dropped by the Lasso regularization process - this metric is unimportant.</p>
+
+<h3 id="3-random-forest">3. Random Forest</h3>
+
+<p>For our final model, we selected a Random Forest Regressor due to its ability to model complex, non-linear relationships and handle interactions between features. We chose to tune <code class="language-plaintext highlighter-rouge">n_estimators</code>, <code class="language-plaintext highlighter-rouge">max_depth</code>, and <code class="language-plaintext highlighter-rouge">min_samples_split</code>, as these directly affect the complexity and performance of the model. We performed a grid search with 5-fold cross-validation to identify the best combination of these parameters, using <strong>R²</strong> as the scoring metric to maximize the proportion of variance explained by the model.</p>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">n_estimators</code></strong>: The number of trees in the forest. We tested values of 100 and 200 to compare performance between a smaller, faster ensemble and a larger one with lower variance.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">max_depth</code></strong>: The maximum depth of each tree. Limiting depth can help prevent overfitting. We tested depths of <code class="language-plaintext highlighter-rouge">None</code> (no limit), 5, and 10.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">min_samples_split</code></strong>: The minimum number of samples required to split an internal node. Increasing this value can reduce overfitting by preventing the model from learning overly specific patterns.</li>
+</ul>
+
+<h4 id="random-forest-trial-1">Random Forest Trial 1</h4>
+
+<h5 id="best-hyperparameters">Best Hyperparameters:</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">n_estimators</code>: 100</li>
+  <li><code class="language-plaintext highlighter-rouge">max_depth</code>: None</li>
+  <li><code class="language-plaintext highlighter-rouge">min_samples_split</code>: 5</li>
+</ul>
+
+<h5 id="best-cross-validation-r-score">Best Cross-Validation R² Score:</h5>
+<ul>
+  <li><strong>0.767</strong> (on training data)</li>
+</ul>
+
+<h4 id="final-model-performance-test-set">Final Model Performance (Test Set)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>MSE</strong></td>
+      <td>0.0097</td>
+    </tr>
+    <tr>
+      <td><strong>MAE</strong></td>
+      <td>0.0762</td>
+    </tr>
+    <tr>
+      <td><strong>R²</strong></td>
+      <td>0.781</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The Random Forest model achieved an <strong>R² score of 0.781</strong>, indicating that it explains approximately <strong>78%</strong> of the variance in the target variable (win rate), and performs better than any of our earlier models.</p>
+
+<h3 id="random-forest-trial-2">Random Forest Trial 2</h3>
+<p>In Trial 2, we refined our hyperparameter tuning by focusing on a more detailed set of values for <code class="language-plaintext highlighter-rouge">n_estimators</code>, <code class="language-plaintext highlighter-rouge">min_samples_split</code>, <code class="language-plaintext highlighter-rouge">max_features</code>, and <code class="language-plaintext highlighter-rouge">min_samples_leaf</code>. From Trial 1, we determined <code class="language-plaintext highlighter-rouge">max_depth</code> should remain at <code class="language-plaintext highlighter-rouge">None</code> to avoid overfitting.</p>
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">n_estimators</code></strong>: [100, 125, 150]</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">min_samples_split</code></strong>: [5, 6, 7]</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">max_features</code></strong>: [<code class="language-plaintext highlighter-rouge">'sqrt'</code>, <code class="language-plaintext highlighter-rouge">'log2'</code>, <code class="language-plaintext highlighter-rouge">None</code>]</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">min_samples_leaf</code></strong>: [1, 2, 3]</li>
+</ul>
+
+<h5 id="best-hyperparameters-1">Best Hyperparameters:</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">n_estimators</code>: 125</li>
+  <li><code class="language-plaintext highlighter-rouge">min_samples_split</code>: 5</li>
+  <li><code class="language-plaintext highlighter-rouge">max_features</code>: None</li>
+  <li><code class="language-plaintext highlighter-rouge">min_samples_leaf</code>: 1</li>
+</ul>
+
+<h5 id="best-cross-validation-r-score-1">Best Cross-Validation R² Score:</h5>
+<ul>
+  <li><strong>0.769</strong> (on training data)</li>
+</ul>
+
+<h4 id="final-model-performance-test-set-1">Final Model Performance (Test Set)</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Trial 1</th>
+      <th>Trial 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>MSE</strong></td>
+      <td>0.0097</td>
+      <td>0.0098</td>
+    </tr>
+    <tr>
+      <td><strong>MAE</strong></td>
+      <td>0.0762</td>
+      <td>0.0764</td>
+    </tr>
+    <tr>
+      <td><strong>R²</strong></td>
+      <td>0.781</td>
+      <td>0.778</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Despite a slightly better cross-validation R² score (<strong>0.769</strong> vs <strong>0.767</strong>), the test set performance in Trial 2 was marginally lower than Trial 1. This suggests Trial 1 may generalize slightly better, despite Trial 2 showing stronger fit during training.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<h3 id="model-performance-comparison">Model Performance Comparison</h3>
+<p>After evaluating multiple models, we selected the <strong>Random Forest</strong> model from <strong>Trial 1</strong> as our final model. Although Trial 2 offered a similarly strong fit, the Trial 1 Random Forest model achieved the <strong>highest R² (0.781)</strong> among all models, indicating that it generalizes best while capturing the most relevant relationships in the data.
+<img src="/assets/model_perf_comparison.png" alt="Model Performance Statistics" />
+<img src="/assets/model_perf_graph.png" alt="Model Performance Graph" /></p>
+
+<h3 id="feature-importance-1">Feature Importance</h3>
+<p>As a reminder, our original question was <strong>Which features matter the most in determining team wins across a split?</strong></p>
+
+<iframe src="assets/final_feature_importance.html" width="800" height="600" frameborder="0"></iframe>
+
+<p>Using the Random Forest (Trial 1) model, we find that <strong>average KDR</strong> is the most important predictor of a team’s win rate. It has an importance of 0.8605, compared to the next highest feature importance, <code class="language-plaintext highlighter-rouge">blue_ratio</code>, with a importance of 0.0475.</p>
+
+<p>Our work shows us that performance-based metrics such as KDR are more predictive of win rate than strategic elements like champion diversity or map side. This insight can guide analysts and teams in focusing on the most impactful aspects of play during a competitive split.</p>
+
+
+      </section>
+      <footer>
+        
+        <p>This project is maintained by <a href="https://github.com/amyliiu">amyliiu</a></p>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+  </body>
+</html>
