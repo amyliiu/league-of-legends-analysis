@@ -261,7 +261,7 @@ In Trial 2, we refined our hyperparameter tuning by focusing on a more detailed 
 | **MAE**       | 0.0762   | 0.0764   |
 | **R²**        | 0.781    | 0.778    |
 
-Despite a slightly better cross-validation R² score (**0.769** vs **0.767**), the test set performance in Trial 2 was marginally lower than Trial 1. This suggests Trial 1 may generalize slightly better, despite Trial 2 showing stronger fit during training.
+Despite a slightly better training cross-validation R² score (**0.769** vs **0.767**), the R² performance in Trial 2 (**0.778**) was marginally lower than Trial 1 (**0.781**). This suggests Trial 1 may generalize better, despite Trial 2 showing a stronger fit during training.
 
 ## Conclusion
 
