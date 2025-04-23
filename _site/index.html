@@ -72,6 +72,8 @@ We will explore different elements that may affect the number of team wins, incl
   <li>and average kill-to-death ratio (KDR)</li>
 </ol>
 
+<p>Ultimately, the question we decided to explore further is: How do champion selection patterns, side choice, and total gold reflect team strategies and outcomes in professional League of Legends play?</p>
+
 <h3 id="why-does-this-matter">Why does this matter?</h3>
 <p>Identifying features that influence team success provides insight into the strategic and performance-based factors that shape competitive e-sports. For example, a team’s variety in champion selection (champion diversity) is heavily dependent on their coaching staff and the champion compositions they explore. On the other hand, the average KDR reflects the mechanical skills of the players and their time spent in training. By analyzing these features, we uncover trends that drive a team’s success. This helps coaches, players, and administration make more informed decisions in scouting, preparation, and team development.</p>
 
@@ -575,9 +577,9 @@ After filtering for team-level rows, we found that all remaining <code class="la
 <h2 id="conclusion">Conclusion</h2>
 
 <h3 id="model-performance-comparison">Model Performance Comparison</h3>
-<p>After evaluating multiple models, we selected the <strong>Random Forest</strong> model from <strong>Trial 1</strong> as our final model. Although Trial 2 offered a similarly strong fit, the Trial 1 Random Forest model achieved the <strong>highest R² (0.781)</strong> among all models, indicating that it generalizes best while capturing the most relevant relationships in the data.
-<img src="/assets/model_perf_comparison.png" alt="Model Performance Statistics" />
-<img src="/assets/model_perf_graph.png" alt="Model Performance Graph" /></p>
+<p>After evaluating multiple models, we selected the <strong>Random Forest</strong> model from <strong>Trial 1</strong> as our final model. Although Trial 2 offered a similarly strong fit, the Trial 1 Random Forest model achieved the <strong>highest R² (0.781)</strong> among all models, indicating that it generalizes best while capturing the most relevant relationships in the data.</p>
+
+<iframe src="assets/r2_vs_rmse.html" width="800" height="600" frameborder="0"></iframe>
 
 <h3 id="feature-importance-1">Feature Importance</h3>
 <p>As a reminder, our original question was <strong>Which features matter the most in determining team wins across a split?</strong></p>

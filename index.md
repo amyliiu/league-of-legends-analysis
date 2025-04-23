@@ -16,6 +16,8 @@ We will explore different elements that may affect the number of team wins, incl
 2. Champion diversity, calculated through variety in champion selection
 3. and average kill-to-death ratio (KDR)
 
+Ultimately, the question we decided to explore further is: How do champion selection patterns, side choice, and total gold reflect team strategies and outcomes in professional League of Legends play?
+
 ### Why does this matter?
 Identifying features that influence team success provides insight into the strategic and performance-based factors that shape competitive e-sports. For example, a team's variety in champion selection (champion diversity) is heavily dependent on their coaching staff and the champion compositions they explore. On the other hand, the average KDR reflects the mechanical skills of the players and their time spent in training. By analyzing these features, we uncover trends that drive a team's success. This helps coaches, players, and administration make more informed decisions in scouting, preparation, and team development.
 
@@ -267,8 +269,13 @@ Despite a slightly better training cross-validation R² score (**0.769** vs **0.
 
 ### Model Performance Comparison
 After evaluating multiple models, we selected the **Random Forest** model from **Trial 1** as our final model. Although Trial 2 offered a similarly strong fit, the Trial 1 Random Forest model achieved the **highest R² (0.781)** among all models, indicating that it generalizes best while capturing the most relevant relationships in the data.
-![Model Performance Statistics](assets/model_perf_comparison.png)
-![Model Performance Graph](assets/model_perf_graph.png)
+
+<iframe
+  src="assets/r2_vs_rmse.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 ### Feature Importance 
 As a reminder, our original question was **Which features matter the most in determining team wins across a split?**
