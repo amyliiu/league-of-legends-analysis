@@ -22,7 +22,7 @@
 {"@context":"https://schema.org","@type":"WebSite","description":"By Amy Liu and Priya Gutta","headline":"Do you want to go pro in League of Legends? Focus on these Features.","name":"Do you want to go pro in League of Legends? Focus on these Features.","url":"http://localhost:4000/"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=aaeaafa96f95cfc06db8c31d1bfa2304ca5f1e1d">
+    <link rel="stylesheet" href="/assets/css/style.css?v=ca2bde5cd845e67b4eaed9f86ef66832d482f737">
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
@@ -429,9 +429,7 @@ After filtering for team-level rows, we found that all remaining <code class="la
 
 <p>Additionally, we examined the importance of each feature based on its learned coefficient values. The Lasso model applies L1 regularization, which leads to some coefficients being zeroed out, effectively performing feature selection. Features with non-zero coefficients have a stronger impact on predicting win rate, while those with near-zero coefficients were considered less important.</p>
 
-<p>Below is the bar chart showing the magnitude of the coefficients:
-<img src="/assets/LASSO_importance.png" alt="Lasso Feature Importances" /></p>
-
+<iframe src="assets/lasso_importances.html" width="800" height="600" frameborder="0"></iframe>
 <p>The following table lists the features ordered by their absolute coefficient values:</p>
 
 <table>

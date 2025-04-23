@@ -191,9 +191,12 @@ Compared to both the baseline and the earlier Linear Regression model, the Lasso
 
 Additionally, we examined the importance of each feature based on its learned coefficient values. The Lasso model applies L1 regularization, which leads to some coefficients being zeroed out, effectively performing feature selection. Features with non-zero coefficients have a stronger impact on predicting win rate, while those with near-zero coefficients were considered less important.
 
-Below is the bar chart showing the magnitude of the coefficients:
-![Lasso Feature Importances](assets/LASSO_importance.png)
-
+<iframe
+  src="assets/lasso_importances.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 The following table lists the features ordered by their absolute coefficient values:
 
 | Feature                | Coefficient |
