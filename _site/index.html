@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Want to go pro in League of Legends? Focus on these Features. | Do you want to go pro in League of Legends? Focus on these Features.</title>
+<title>Do you want to go pro in League of Legends? Focus on these Features. | By Amy Liu and Priya Gutta</title>
 <meta name="generator" content="Jekyll v3.10.0" />
-<meta property="og:title" content="Want to go pro in League of Legends? Focus on these Features." />
+<meta property="og:title" content="Do you want to go pro in League of Legends? Focus on these Features." />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="By Amy Liu and Priya Gutta" />
 <meta property="og:description" content="By Amy Liu and Priya Gutta" />
@@ -17,12 +17,12 @@
 <meta property="og:site_name" content="Do you want to go pro in League of Legends? Focus on these Features." />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Want to go pro in League of Legends? Focus on these Features." />
+<meta property="twitter:title" content="Do you want to go pro in League of Legends? Focus on these Features." />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","description":"By Amy Liu and Priya Gutta","headline":"Want to go pro in League of Legends? Focus on these Features.","name":"Do you want to go pro in League of Legends? Focus on these Features.","url":"http://localhost:4000/"}</script>
+{"@context":"https://schema.org","@type":"WebSite","description":"By Amy Liu and Priya Gutta","headline":"Do you want to go pro in League of Legends? Focus on these Features.","name":"Do you want to go pro in League of Legends? Focus on these Features.","url":"http://localhost:4000/"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=75856bb74f60e3dedfb200e4c33cb5b1ede442a3">
+    <link rel="stylesheet" href="/assets/css/style.css?v=aaeaafa96f95cfc06db8c31d1bfa2304ca5f1e1d">
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
@@ -60,11 +60,9 @@
       <h2 id="introduction">Introduction</h2>
 
 <h3 id="dataset-overview">Dataset Overview</h3>
-<p>This project uses the 2025 League of Legends (LoL) dataset from the Oracle’s Elixir dataset (https://oracleselixir.com/tools/downloads). It is a collection of all 2025 LoL matches updated once a day. Our dataset was downloaded March 25th, 2025 and only considers games played before then. It includes detailed team- and player-level data from professional games across multiple competitive tiers and regional splits. Each match contains statistics such as champion picks, total gold, kills, side selection (blue/red), and game results. The dataset is particularly rich for exploratory analysis, allowing us to investigate broader strategic patterns across teams and time.</p>
+<p>This project uses the 2025 League of Legends (LoL) dataset from the Oracle’s Elixir dataset (https://oracleselixir.com/tools/downloads), which tracks all pro games played throughout the year. Our dataset was downloaded on March 25, 2025, and only includes matches played before that date. It contains detailed team and player-level data from games across multiple competitive tiers and regional splits. Each match contains statistics such as champion picks, total gold, kills, side selection (blue/red), and game results.</p>
 
-<p>We chose the 2025 LoL data because it reflects the most p-to-date game meta and team rosters. Given the rapid evolution of the game, such as champion and item changes, using the most recent data ensures our analysis captures the current competitive landscape, making the results more applicable for understanding the true features that impact team wins in the modern meta.</p>
-
-<p>In the exploratory phase, we considered questions such as: How do certain teams in Tier 1 pick their champions? Does a team’s side (blue or red) influence their selection? And does the split (e.g., Spring vs. Summer) affect how teams build their compositions? These questions guided our early data aggregations and visualizations, where we examined champion diversity, side preference, and changes in team strategies across splits.</p>
+<p>Specifically, we chose the 2025 LoL data because it reflects the most up-to-date game meta and team rosters. Because the game evolves quickly with frequent updates to champion and item abilities, using the most recent data ensures our analysis captures the current competitive landscape, making the results more applicable for understanding the true features that impact team wins in the modern meta.</p>
 
 <p>In this project, our analysis will address the key question <strong>which features matter the most in determining team wins across a split?</strong>
 We will explore different elements that may affect the number of team wins, including:</p>
@@ -211,6 +209,9 @@ After filtering for team-level rows, we found that all remaining <code class="la
 <p>Because of our filtering, we had no rows that contained <code class="language-plaintext highlighter-rouge">NaN</code> values, and did not need to perform imputation. So, after performing data cleaning, we retained a high-quality dataset of <strong>3120 rows and 1560 games</strong> for our analysis.</p>
 
 <h2 id="exploratory-analysis">Exploratory Analysis</h2>
+
+<p>Early on, we explored questions such as: How do certain teams in Tier 1 pick their champions? Does a team’s side (blue or red) influence their selection? And does the split (e.g., Spring vs. Summer) affect how teams build their compositions? These questions guided our early data aggregations and visualizations, where we examined champion diversity, side preference, and changes in team strategies across splits.</p>
+
 <h3 id="winning-side-frequency-univariate-analysis">Winning Side Frequency (Univariate Analysis)</h3>
 <p>We first analyzed the overall winning side frequency across all games:</p>
 <iframe src="assets/winning_side.html" width="800" height="600" frameborder="0"></iframe>
@@ -222,8 +223,58 @@ After filtering for team-level rows, we found that all remaining <code class="la
 <p>Note that certain champions had a strong preference on one side. For example, Corki was picked 41 more times on the blue side than on the red, suggesting that it is valued as a first-pick option. This data could be used for champion bans, as players are aware of which champions their opponent is more likely to choose.</p>
 
 <h3 id="interesting-aggregates">Interesting Aggregates</h3>
-<p>Embed at least one grouped table or pivot table in your website and explain its significance.
-TODOOOO</p>
+
+<h4 id="average-total-gold-by-side-and-game-outcome">Average Total Gold by Side and Game Outcome</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Side</th>
+      <th>Loss</th>
+      <th>Win</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Blue</td>
+      <td>54,788.80</td>
+      <td>64,072.00</td>
+    </tr>
+    <tr>
+      <td>Red</td>
+      <td>53,651.00</td>
+      <td>64,909.50</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This table shows us that winning teams earn significantly more total gold than losing teams, regardless of whether they play on the red or blue side. The gap highlights the importance of strategies such as farming, securing objectives, and controlling the map. Thus, we can assume resource control is a critical factor in determining game outcomes in LoL – so gold-related features might be useful in our predictive model.</p>
+
+<h4 id="average-team-kills-by-side-and-game-outcome">Average Team Kills by Side and Game Outcome</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Side</th>
+      <th>Loss</th>
+      <th>Win</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Blue</td>
+      <td>11.0</td>
+      <td>20.9</td>
+    </tr>
+    <tr>
+      <td>Red</td>
+      <td>9.9</td>
+      <td>21.7</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The “Average Team Kills by Side and Game Outcome” table shows a similar trend—winning teams secure up more kills,on average, than losing ones. This makes sense, as securing kills often leads to greater map control, gold income, and pressure. Note that this pattern holds true across both blue and red sides. So, kill-count-related features might also be useful in our model.</p>
 
 <h2 id="problem-identification">Problem Identification</h2>
 <p>Thus, we aim to <strong>predict the number of wins a LoL team will achieve during a split</strong> using performance-based and strategic-based features. This is a regression problem because our target variable — the total number of wins per team per split — is a continuous number rather than a categorical label. We chose this target because win count is a direct indicator of a team performance across a season. The features used for prediction are:</p>
@@ -239,7 +290,7 @@ TODOOOO</p>
 <p>All features are aggregated at the split level using data from previous splits. This way, they reflect team behavior and performance before the start of the split we’re predicting which simulates a real-world scenario. We want to forecast how well a team will perform in an upcoming split using only historical information and not provide any data from future games.</p>
 
 <h3 id="evaluation-metric">Evaluation Metric</h3>
-<p>We use R² as our primary evaluation metric. R² measures the proportion of variance in the target variable (win rate) that is explained by the model. An R² of 1.0 indicates perfect predictions, while an R² of 0.0 means the model performs no better than simply predicting the mean. In context of our analysis, R² allows us to compare the relative importance of different features used in determining team wins. The higher the R², the more valuable and relevant the features are.</p>
+<p>We use R² as our primary evaluation metric. This is because our primary goal is not just to predict win rate accurately, but to understand which features best explain a team’s performance over a split. R² directly measures how much of the variance in win rate is explained by the model, making it a more appropriate choice than MSE when interpretability and explanatory power are the focus. While MSE penalizes large errors and reflects raw prediction accuracy, it doesn’t tell us whether our model is learning meaningful patterns in the data. R², on the other hand, allows us to evaluate how well different feature sets and models capture the underlying structure of team success — which aligns more closely with our objective of identifying strategic factors that contribute to winning. By maximizing R², we prioritize models that offer clearer insights into what matters most for performance in competitive play.</p>
 
 <h2 id="baseline-model">Baseline Model</h2>
 <p>We trained a baseline linear regression model to predict a team’s win rat in a given split.</p>
@@ -337,8 +388,7 @@ TODOOOO</p>
 <p>The R² improvement from 0.401 to 0.702 shows that our final model explains over 70% of the variance in win rate, compared to just 40% in the baseline. This is a significant improvement from our baseline model and shows that adding strategic features capture other aspects of the game that relate to its outcome.</p>
 
 <h3 id="2-lasso">2. Lasso</h3>
-<p>We chose to explore LASSO next because it can effectively perform feature selection and improve generalization/reduce overfitting. We chose to tune the alpha hyperparameter for our Lasso model. Since Lasso applies L1 regularization, adjusting alpha helps control model complexity. A higher alpha increases the regularization strength, reducing overfitting and potentially zeroing out unimportant features. We used <code class="language-plaintext highlighter-rouge">GridSearchCV</code> with 5-fold cross-validation to search across a range of alpha values: <code class="language-plaintext highlighter-rouge">[0.001, 0.01, 0.1, 1, 10]</code>.<br />
-The optimal value was found to be: <strong><code class="language-plaintext highlighter-rouge">alpha = 0.001</code></strong></p>
+<p>We chose to explore LASSO next because it can effectively perform feature selection and improve generalization/reduce overfitting. We chose to tune the alpha hyperparameter for our Lasso model. Since Lasso applies L1 regularization, adjusting alpha helps control model complexity. A higher alpha increases the regularization strength, reducing overfitting and potentially zeroing out unimportant features. We used <code class="language-plaintext highlighter-rouge">GridSearchCV</code> with 5-fold cross-validation to search across a range of alpha values: <code class="language-plaintext highlighter-rouge">[0.001, 0.01, 0.1, 1, 10]</code>. The optimal value was found to be: <strong><code class="language-plaintext highlighter-rouge">alpha = 0.001</code></strong></p>
 
 <h4 id="model-performance-1">Model Performance</h4>
 
