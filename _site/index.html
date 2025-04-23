@@ -22,7 +22,7 @@
 {"@context":"https://schema.org","@type":"WebSite","description":"By Amy Liu and Priya Gutta","headline":"Do you want to go pro in League of Legends? Focus on these Features.","name":"Do you want to go pro in League of Legends? Focus on these Features.","url":"http://localhost:4000/"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=ca2bde5cd845e67b4eaed9f86ef66832d482f737">
+    <link rel="stylesheet" href="/assets/css/style.css?v=0bc9f82efb9582699009d7414376351a4e26292e">
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
@@ -279,7 +279,8 @@ After filtering for team-level rows, we found that all remaining <code class="la
 <p>The “Average Team Kills by Side and Game Outcome” table shows a similar trend—winning teams secure up more kills,on average, than losing ones. This makes sense, as securing kills often leads to greater map control, gold income, and pressure. Note that this pattern holds true across both blue and red sides. So, kill-count-related features might also be useful in our model.</p>
 
 <h2 id="problem-identification">Problem Identification</h2>
-<p>Thus, we aim to <strong>predict the number of wins a LoL team will achieve during a split</strong> using performance-based and strategic-based features. This is a regression problem because our target variable — the total number of wins per team per split — is a continuous number rather than a categorical label. We chose this target because win count is a direct indicator of a team performance across a season. The features used for prediction are:</p>
+<p>Thus, we aim to <strong>predict the number of wins a LoL team will achieve during a split</strong> using performance-based and strategic-based features. We are answering the question: Can we predict a team’s win rate during a split based on features such as average total gold, average kill/death count, champion diversity, side preference, and other average game performance stats?
+This is a regression problem because our target variable — the total number of wins per team per split — is a continuous number rather than a categorical label. We chose this target because win count is a direct indicator of a team performance across a season. The features used for prediction are:</p>
 <ul>
   <li>avrg_teamkills</li>
   <li>avrg_totalgold</li>
@@ -582,7 +583,7 @@ After filtering for team-level rows, we found that all remaining <code class="la
 <iframe src="assets/r2_vs_rmse.html" width="800" height="600" frameborder="0"></iframe>
 
 <h3 id="feature-importance-1">Feature Importance</h3>
-<p>As a reminder, our original question was <strong>Which features matter the most in determining team wins across a split?</strong></p>
+<p>As a reminder, the underlying question we were trying to answer was: Can we predict a team’s win rate during a split based on features such as average total gold, average kill/death count, champion diversity, side preference, and other average game performance stats?</p>
 
 <iframe src="assets/final_feature_importance.html" width="800" height="600" frameborder="0"></iframe>
 
