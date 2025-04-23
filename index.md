@@ -279,8 +279,7 @@ After evaluating multiple models, we selected the **Random Forest** model from *
 ></iframe>
 
 ### Feature Importance 
-As a reminder, the underlying question we were trying to answer was: Can we predict a team's win rate during a split based on features such as average total gold, average kill/death count, champion diversity, side preference, and other average game performance stats?
-
+As a reminder, the prediction question we were trying to answer was: Can we predict a team’s win rate during a split based on features such as average total gold, average kill/death count, champion diversity, side preference, and other average game performance stats? We are trying to figure out which features contribute the most to success.
 <iframe
   src="assets/final_feature_importance.html"
   width="800"

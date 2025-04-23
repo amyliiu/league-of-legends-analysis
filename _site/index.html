@@ -22,7 +22,7 @@
 {"@context":"https://schema.org","@type":"WebSite","description":"By Amy Liu and Priya Gutta","headline":"Do you want to go pro in League of Legends? Focus on these Features.","name":"Do you want to go pro in League of Legends? Focus on these Features.","url":"http://localhost:4000/"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=0bc9f82efb9582699009d7414376351a4e26292e">
+    <link rel="stylesheet" href="/assets/css/style.css?v=8788f76602796e7673b5ccf3e3193cd8d335ff5c">
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
@@ -583,8 +583,7 @@ This is a regression problem because our target variable — the total number of
 <iframe src="assets/r2_vs_rmse.html" width="800" height="600" frameborder="0"></iframe>
 
 <h3 id="feature-importance-1">Feature Importance</h3>
-<p>As a reminder, the underlying question we were trying to answer was: Can we predict a team’s win rate during a split based on features such as average total gold, average kill/death count, champion diversity, side preference, and other average game performance stats?</p>
-
+<p>As a reminder, the prediction question we were trying to answer was: Can we predict a team’s win rate during a split based on features such as average total gold, average kill/death count, champion diversity, side preference, and other average game performance stats? We are trying to figure out which features contribute the most to success.</p>
 <iframe src="assets/final_feature_importance.html" width="800" height="600" frameborder="0"></iframe>
 
 <p>Using the Random Forest (Trial 1) model, we find that <strong>average KDR</strong> is the most important predictor of a team’s win rate. It has an importance of 0.8605, compared to the next highest feature importance, <code class="language-plaintext highlighter-rouge">blue_ratio</code>, with a importance of 0.0475.</p>
